@@ -1,0 +1,13 @@
+fmt="Hello world!\n"
+printf fmt
+
+fmt="a is %d\n"
+val=0x5
+printf fmt val
+
+a=0x2
+b=0x3
+add a b
+val=?
+fmt="2+3=%d\n"
+printf fmt val
