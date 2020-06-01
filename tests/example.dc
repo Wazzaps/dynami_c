@@ -1,13 +1,20 @@
-fmt="Hello world!\n"
-printf fmt
+$1="Hello world!\n"
+printf
 
-fmt="a is %d\n"
-val=0x5
-printf fmt val
+$1="a is %d\n"
+$2=0x5
+printf
 
-a=0x2
-b=0x3
-add a b
-val=?
-fmt="2+3=%d\n"
-printf fmt val
+$a=0x2
+$b=0x3
+
+$1=a
+$2=b
+add
+
+$2=$a
+$3=$b
+$4=$0
+
+$1="%d+%d=%d\n"
+printf

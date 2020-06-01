@@ -5,4 +5,4 @@ struct symbol {
     void* value;
 };
 
-int dynamic_eval(const char* code, const struct symbol* symbols);
+int dynamic_eval(char* code, const struct symbol* symbols);

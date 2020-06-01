@@ -23,13 +23,9 @@ struct symbol symbols[] = {
 };
 
 int main() {
-    char* program = "get_fmt\n"
-                    "fmt=?\n"
-                    "a=0x2\n"
-                    "b=0x3\n"
-                    "add a b\n"
-                    "res=?\n"
-                    "printf fmt a b res";
+    char program[] = "$1=\"I said \\\"Hello\\\" and val is 0x%x\\n\"\n"
+                     "$2=0x1234\n"
+                     "printf";
     if (dynamic_eval(program, symbols) != 0) {
         printf("dynamiC failed to parse program\n");
         return -1;
