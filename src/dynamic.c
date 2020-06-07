@@ -2,7 +2,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#ifdef DC_DEBUG
 #include <stdio.h>
+#endif
 #include "dynamic.h"
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(*arr))
@@ -15,20 +17,20 @@ struct dc_state {
     struct dc_variable vars[16];
 };
 
-static const char* find_eol(const char* code) {
-    while(*code != '\n' && *code != '\0') {
-        code++;
-    }
-    return code;
-}
-
-static const char* find_eow(const char* word) {
-    while(*word != '\n' && *word != '\0' && *word != ' ') {
-        word++;
-    }
-    return word;
-}
-
+//static const char* find_eol(const char* code) {
+//    while(*code != '\n' && *code != '\0') {
+//        code++;
+//    }
+//    return code;
+//}
+//
+//static const char* find_eow(const char* word) {
+//    while(*word != '\n' && *word != '\0' && *word != ' ') {
+//        word++;
+//    }
+//    return word;
+//}
+//
 //static const char* find_setter(const char* word) {
 //    while(*word != '\n' && *word != '\0' && *word != ' ' && *word != '=') {
 //        word++;
@@ -120,8 +122,11 @@ int dynamic_eval(char* code, const struct symbol* symbols) {
         char* setter_expr = strsplit(line, '=');
         if (setter_expr) {
             parse_literal(&state.vars[HEXDIGIT_TO_INT(line[1])], setter_expr, &state);
+        } else if (*line == '\n') {
+            line++;
+            continue;
         } else {
-            struct symbol* iter = symbols;
+            const struct symbol* iter = symbols;
             void* symbol_addr = NULL;
             while (iter->name) {
                 if (strcmp(iter->name, line) == 0) {
